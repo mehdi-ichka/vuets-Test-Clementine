@@ -1,4 +1,6 @@
 <div class="home">
-    <img alt="Vue logo" src="../assets/logo.png">
-    <HelloWorld msg="Welcome to Your Vue.js + TypeScript App"/>
+    <h1>ToDo List</h1>
+    <input placeholder="New Task" />
+    <button :click="addTodo" class="btn btn-primary">Add</button>
+    <todo v-for="todo in todos" :key="todo.id" :title="todo.title"></todo>
 </div>

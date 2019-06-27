@@ -1,6 +1,21 @@
 <div class="home">
     <h1>ToDo List</h1>
-    <input placeholder="New Task" />
-    <button :click="addTodo" class="btn btn-primary">Add</button>
-    <todo v-for="todo in todos" :key="todo.id" :title="todo.title"></todo>
+    <b-row style="margin: 25px;">
+        <b-col offset="4" cols="3">
+            <b-form-input placeholder="New Task" type="text" v-model="title"></b-form-input>
+        </b-col>
+        <b-col cols="1">
+                <b-button @click="addTodo" variant="primary" style="width: 100%"> Add </b-button>
+        </b-col>
+    </b-row>
+
+    <todo v-for="todo in listPerPage" id="my-table" :key="todo.id" :id="todo.id" :title="todo.title"></todo>
+    <b-row style="margin-top: 10px; margin-left: 35%;">
+        <b-pagination
+            v-model="currentPage"
+            :total-rows="todos.length"
+            :per-page="20"
+            aria-controls="my-table"
+        ></b-pagination>
+    </b-row> 
 </div>

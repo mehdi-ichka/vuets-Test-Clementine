@@ -21,18 +21,24 @@ export default class MyStoreModule extends VuexModule {
   }
 
   @Mutation
-  public addTodo() {
-
+  public addTodo(todo: ITodo) {
+    this.todoList.push(todo);
   }
 
   @Mutation
-  public removeTodo() {
-
+  public removeTodo(key: number) {
+    const id = this.todoList.findIndex(t => t.id === key);
+    this.todoList.splice(id, 1);
   }
 
-  // @Action({ commit: 'setTodoList' })
-  @Action
-  public async getTodos(): Promise<ITodo[]> {
+  @Mutation
+  public updateTodo(key: number, todo: ITodo) {
+    const id = this.todoList.findIndex(t => t.id === key);
+    this.todoList.splice(id, 1, todo);
+  }
+
+  @Action({ commit: 'setTodoList' })
+  public async getTodosAsync(): Promise<ITodo[]> {
     try {
       const res = await Axios.get<ITodo[]>(`${baseUrl}/todos`);
       return res.data;
@@ -42,32 +48,32 @@ export default class MyStoreModule extends VuexModule {
     }
   }
 
-  @Action
-  public async postTodo(todo: ITodo): Promise<boolean> {
+  @Action({ commit: 'addTodo' })
+  public async postTodoAsync(todo: ITodo): Promise<ITodo> {
     try {
-      const res = await Axios.post(`${baseUrl}/todos`, todo);
-      console.log(res.data);
+      const res = await Axios.post<ITodo>(`${baseUrl}/todos`, todo);
+      //the fake api returns id=201 all the time so we override its value;
+      res.data.id = todo.id;
       return res.data;
     } catch (error) {
       console.log(error);
-      return false;
+      return {} as ITodo;
     }
   }
 
-  @Action
-  public async deleteTodo(id: number) {
+  @Action({ commit: 'removeTodo' })
+  public async deleteTodoAsync(id: number): Promise<number> {
     try {
-      const res = await Axios.delete(`${baseUrl}/todos/${id}`);
-      console.log(res.data);
-      return res.data;
+      const res = await Axios.delete<number>(`${baseUrl}/todos/${id}`);
+      return id;
     } catch (error) {
       console.log(error);
-      return false;
+      return {} as ITodo;
     }
   }
 
-  @Action
-  public async updateTodo(id: number, todo: ITodo) {
+  @Action({ commit: 'updateTodo' })
+  public async putTodoAsync(id: number, todo: ITodo) {
     try {
       const res = await Axios.put(`${baseUrl}/todos/${id}`, todo);
       console.log(res.data);

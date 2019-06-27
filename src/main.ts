@@ -4,7 +4,9 @@ import router from './router';
 import { library } from '@fortawesome/fontawesome-svg-core';
 import { faTrash, faPencilAlt } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome';
+import BootstrapVue from 'bootstrap-vue';
 
+Vue.use(BootstrapVue);
 library.add(faTrash, faPencilAlt);
 
 Vue.component('font-awesome-icon', FontAwesomeIcon);

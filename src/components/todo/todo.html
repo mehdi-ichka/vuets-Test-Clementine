@@ -1,10 +1,14 @@
 <b-row>
     <b-col cols="2"></b-col>
-    <b-col cols="6" style="border: 1px solid black; text-align: left;"> {{title}} </b-col>
-    <b-col cols="1" @click="deleteTodo" style="flex: 1 1 auto; border: 1px solid black; cursor: pointer;" >
+    <b-col cols="6" class="todo-description"> {{title}} </b-col>
+    <b-col cols="1" @click="deleteTodo" class="todo-icon">
         <font-awesome-icon icon="trash"></font-awesome-icon>
     </b-col>
-    <b-col cols="1" @click="editTodo"  style="flex: 1 1 auto; border: 1px solid black; cursor: pointer;" >
+    <b-col cols="1" class="todo-icon" @click="showPopup = true" v-b-modal.modal-prevent-closing>
         <font-awesome-icon icon="pencil-alt"></font-awesome-icon>
     </b-col>
+    <template v-if="showPopup">
+        <edit-popup @task="editTodo" @close="showPopup = false"></edit-popup>
+    </template>
+    
 </b-row>

@@ -1,0 +1,29 @@
+
+<div>
+
+    <b-modal
+    id="modal-prevent-closing"
+    ref="modal"
+    title="Submit Your Task"
+    @show="resetModal"
+    @hidden="closeModal"
+    @ok="handleOk"
+    
+    >
+    <form ref="form" @submit.stop.prevent="handleSubmit">
+        <b-form-group
+        :state="taskState"
+        label="Edit task"
+        label-for="task-input"
+        invalid-feedback="insert a task"
+        >
+        <b-form-input
+            id="task-input"
+            v-model="task"
+            :state="taskState"
+            required
+        ></b-form-input>
+        </b-form-group>
+    </form>
+    </b-modal>
+</div>

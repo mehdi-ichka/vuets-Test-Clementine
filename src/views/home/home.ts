@@ -1,5 +1,6 @@
 import { Component, Vue } from 'vue-property-decorator';
 import Todo from '@/components/todo/todo'; // @ is an alias to /src
+import EditPopup from '@/components/editPopup/editPopup';
 import WithRender from './home.html';
 import MyStore from '@/store';
 import { getModule } from 'vuex-module-decorators';
@@ -13,7 +14,7 @@ const store = getModule(MyStore);
   },
 })
 export default class Home extends Vue {
-  private todos: ITodoForTable[];
+  private todos: ITodo[];
   private title: string;
   private currentPage: number;
 

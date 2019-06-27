@@ -32,8 +32,8 @@ export default class MyStoreModule extends VuexModule {
   }
 
   @Mutation
-  public updateTodo(key: number, todo: ITodo) {
-    const id = this.todoList.findIndex(t => t.id === key);
+  public updateTodo(todo: ITodo) {
+    const id = this.todoList.findIndex(t => t.id === todo.id);
     this.todoList.splice(id, 1, todo);
   }
 
@@ -68,19 +68,18 @@ export default class MyStoreModule extends VuexModule {
       return id;
     } catch (error) {
       console.log(error);
-      return {} as ITodo;
+      return -1;
     }
   }
 
   @Action({ commit: 'updateTodo' })
-  public async putTodoAsync(id: number, todo: ITodo) {
+  public async putTodoAsync(todo: ITodo) {
     try {
-      const res = await Axios.put(`${baseUrl}/todos/${id}`, todo);
-      console.log(res.data);
+      const res = await Axios.put(`${baseUrl}/todos/${todo.id}`, todo);
       return res.data;
     } catch (error) {
       console.log(error);
-      return false;
+      return null;
     }
   }
 }

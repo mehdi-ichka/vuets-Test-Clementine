@@ -9,13 +9,13 @@
         </b-col>
     </b-row>
 
-    <todo v-for="todo in listPerPage" id="my-table" :key="todo.id" :id="todo.id" :title="todo.title"></todo>
+    <todo v-for="todo in listPerPage" id="my-list" :key="todo.id" :identifier="todo.id" :title="todo.title"></todo>
     <b-row style="margin-top: 10px; margin-left: 35%;">
         <b-pagination
             v-model="currentPage"
             :total-rows="todos.length"
             :per-page="20"
-            aria-controls="my-table"
+            aria-controls="my-list"
         ></b-pagination>
-    </b-row> 
+    </b-row>
 </div>
